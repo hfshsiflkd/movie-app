@@ -1,12 +1,15 @@
+"use client";
+
 import React from "react";
 
-function App() {
+import { useTheme } from "next-themes";
+
+
+export default function Home() {
+  
   return (
-    <div className="body">
-     
+    <div className="w-screen h-screen flex justify-center items-center">
       
     </div>
   );
 }
-
-export default App;
