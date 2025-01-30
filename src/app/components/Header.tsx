@@ -24,6 +24,7 @@ import { Moon, MoonIcon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const { setTheme } = useTheme();
@@ -32,7 +33,9 @@ export default function Home() {
       <div className="w-full h-[59px] flex justify-center items-center fixed z-30 bg-white dark:bg-black px-4 sm:px-6">
         <div className="w-full max-w-[1280px] h-[36px] flex justify-between items-center">
           <div className="w-[92px] h-[20px] ">
-            <img src="/img/Logo.png" alt="" />
+            <Link href="/">
+              <img src="/img/Logo.png" alt="" />
+            </Link>
           </div>
           <div className="w-[488px] h-[36px] hidden md:flex  flex justify-between items-center">
             <Select>
