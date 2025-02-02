@@ -10,6 +10,7 @@ import { MovieCard } from "./components/Card";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 import {
   Carousel,
@@ -19,7 +20,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
@@ -27,10 +27,22 @@ export default function Home() {
   const [Loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [popularmovies, setpopularMovies] = useState<
-    { id: number; title: string; poster_path: string; vote_average: number; backdrop_path: string }[]
+    {
+      id: number;
+      title: string;
+      poster_path: string;
+      vote_average: number;
+      backdrop_path: string;
+    }[]
   >([]);
   const [upcomingMovies, setUpcomingMovies] = useState<
-    { id: number; title: string; poster_path: string; vote_average: number; backdrop_path: string }[]
+    {
+      id: number;
+      title: string;
+      poster_path: string;
+      vote_average: number;
+      backdrop_path: string;
+    }[]
   >([]);
   const [top_rated, settop_rated] = useState<
     { id: number; title: string; poster_path: string; vote_average: number }[]
@@ -97,23 +109,27 @@ export default function Home() {
         onMouseLeave={plugin.current.reset}
       >
         <CarouselPrevious className="absolute left-5 sm:left-11 z-20" />
-        <CarouselContent>
-          {upcomingMovies.slice(0, 5).map((movie, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1 relative">
-                <Card className="w-full sm:w-screen overflow-hidden">
-                  <CardContent className="flex  items-center justify-center  h-[300px] sm:h-[600px] w-full object-fill relative p-0">
-                    <img
-                      src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                      alt={movie.title}
-                      className=" w-screen h-screen"
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
+        {Loading ? (
+          <Skeleton className="h-150 w-screen rounded" />
+        ) : (
+          <CarouselContent>
+            {upcomingMovies.slice(0, 5).map((movie, index) => (
+              <CarouselItem key={index}>
+                <div className="p-1 relative">
+                  <Card className="w-full sm:w-screen overflow-hidden">
+                    <CardContent className="flex  items-center justify-center  h-[300px] sm:h-[600px] w-full object-fill relative p-0">
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                        alt={movie.title}
+                        className=" w-screen h-screen"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        )}
         <CarouselNext className="absolute right-5 sm:right-11 z-20" />
       </Carousel>
 
@@ -127,7 +143,7 @@ export default function Home() {
             <Nexticon />
           </button>
         </div>
-        <div  className="w-[350px] sm:w-[1277px] h-auto sm:h-[910px]  flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px]">
+        <div className="w-[350px] sm:w-[1277px] h-auto sm:h-[910px]  flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px]">
           {upcomingMovies
             .slice(0, 10)
             .map(
@@ -138,12 +154,13 @@ export default function Home() {
                 vote_average: number;
               }) => (
                 <Link href={`/detail/${movie.id}`} key={movie.id}>
-                <MovieCard
-                  key={movie.id}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  name={movie.title}
-                  rating={parseFloat(movie.vote_average.toFixed(1))}
-                />
+                  <MovieCard
+                    key={movie.id}
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    name={movie.title}
+                    rating={parseFloat(movie.vote_average.toFixed(1))}
+                    Loading={Loading}
+                  />
                 </Link>
               )
             )}
@@ -175,6 +192,7 @@ export default function Home() {
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   name={movie.title}
                   rating={parseFloat(movie.vote_average.toFixed(1))}
+                  Loading={Loading}
                 />
               )
             )}
@@ -206,6 +224,7 @@ export default function Home() {
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   name={movie.title}
                   rating={parseFloat(movie.vote_average.toFixed(1))}
+                  Loading={Loading}
                 />
               )
             )}
