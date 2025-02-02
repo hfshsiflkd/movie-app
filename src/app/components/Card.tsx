@@ -1,7 +1,8 @@
 import { useTheme } from "next-themes";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { ThemeProvider } from "@/components/ui/theme-provider";
+
+import { Skeleton } from "@/components/ui/skeleton"
 
 import Star from "../icons/Star";
 
@@ -14,6 +15,7 @@ interface MovieCardProps {
 export const MovieCard = ({ src, name, rating }: MovieCardProps) => {
   return (
     <Card className="w-[158px] h-[309px] sm:w-[230px] sm:h-[439px] flex items-center justify-center rounded">
+       {/* <Skeleton className="h-[309px] w-[158px] rounded" /> */}
       <CardContent className="flex flex-col items-center justify-center overflow-hidden p-0 bg-customcard dark:bg-customcarddark w-[158px] h-[309px] sm:w-[230px] sm:h-[439px]">
         <img
           src={src}
