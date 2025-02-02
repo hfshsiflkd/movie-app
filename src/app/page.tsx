@@ -101,7 +101,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-auto flex justify-between items-center flex-col mb-10 gap-12 sm:gap-20 ">
+    <div className="w-full h-auto flex justify-between items-center flex-col mb-10 gap-12 sm:gap-20  ">
       <Carousel
         plugins={[plugin.current]}
         className="w-full relative"
@@ -113,15 +113,15 @@ export default function Home() {
           <Skeleton className="h-150 w-screen rounded" />
         ) : (
           <CarouselContent>
-            {upcomingMovies.slice(0, 5).map((movie, index) => (
+            {upcomingMovies.slice(0, 10).map((movie, index) => (
               <CarouselItem key={index}>
-                <div className="p-1 relative">
+                <div className=" relative">
                   <Card className="w-full sm:w-screen overflow-hidden">
-                    <CardContent className="flex  items-center justify-center  h-[300px] sm:h-[600px] w-full object-fill relative p-0">
+                    <CardContent className="flex items-center justify-center h-[300px] sm:h-[600px] w-full relative p-0 overflow-hidden">
                       <img
-                        src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                         alt={movie.title}
-                        className=" w-screen h-screen"
+                        className="w-full min-h-full object-cover"
                       />
                     </CardContent>
                   </Card>
