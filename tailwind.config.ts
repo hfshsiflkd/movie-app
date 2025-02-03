@@ -18,6 +18,8 @@ export default {
   			customsunny: '#777CCE',
 			customcard: '#f4f4f5',
 			customcarddark: '#262626',
+			customGenre: '#E4E4E7',
+			customGenredark: '#FAFAFA',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

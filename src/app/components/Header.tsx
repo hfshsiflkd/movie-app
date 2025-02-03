@@ -30,7 +30,7 @@ export default function Home() {
   const { setTheme } = useTheme();
   return (
     <div className="w-full h-[59px] ">
-      <div className="w-full h-[59px] flex justify-center items-center fixed z-30 bg-white dark:bg-black px-4 sm:px-6">
+      <div className="w-full h-[59px] flex justify-center items-center fixed z-40 bg-white dark:bg-black px-4 sm:px-6">
         <div className="w-full max-w-[1280px] h-[36px] flex justify-between items-center">
           <div className="w-[92px] h-[20px] ">
             <Link href="/">
