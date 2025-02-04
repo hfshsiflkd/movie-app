@@ -16,7 +16,7 @@ interface MovieCardProps {
 export const MovieCard = ({ src, name, rating, Loading }: MovieCardProps) => {
   return (
     <Card className="w-[158px] h-[309px] sm:w-[230px] sm:h-[439px] flex items-center justify-center rounded">
-      {/* <Skeleton className="h-[309px] w-[158px] rounded" /> */}
+      
       {Loading ? (
         <Skeleton className="h-[309px] w-[158px] rounded" />
       ) : (

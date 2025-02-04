@@ -47,6 +47,13 @@ export default function Home() {
   const [top_rated, settop_rated] = useState<
     { id: number; title: string; poster_path: string; vote_average: number }[]
   >([]);
+  const [nowPlaying, setNowPlaying] = useState<{
+    id: number;
+    title: string;
+    poster_path: string;
+    vote_average: number;
+    backdrop_path: string;
+  }[]>([]);
 
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
@@ -81,10 +88,19 @@ export default function Home() {
           },
         }
       );
+      const NowPlayingMovie = await axios.get(
+        `${TMDB_BASE_URL}/movie/now_playing?language=en-US&page=1`,
+        {
+          headers: {
+            Authorization: `Bearer ${TMDB_API_KEY}`,
+          },
+        }
+      );
 
       setUpcomingMovies(upcomingResponse.data.results);
       setpopularMovies(popularResponse.data.results);
       settop_rated(top_rated.data.results);
+      setNowPlaying(NowPlayingMovie.data.results);
       console.log(upcomingResponse.data.results);
 
       setLoading(false);
@@ -113,7 +129,7 @@ export default function Home() {
           <Skeleton className="h-150 w-screen rounded" />
         ) : (
           <CarouselContent>
-            {upcomingMovies.slice(0, 10).map((movie, index) => (
+            {nowPlaying.slice(0, 10).map((movie, index) => (
               <CarouselItem key={index}>
                 <div className=" relative">
                   <Card className="w-full sm:w-screen overflow-hidden">
@@ -153,7 +169,7 @@ export default function Home() {
                 poster_path: string;
                 vote_average: number;
               }) => (
-                <Link href={`/detail/${movie.id}`} key={movie.id}>
+                <Link href={`/detail/${movie.id}`} key={movie.id} >
                   <MovieCard
                     key={movie.id}
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -187,6 +203,7 @@ export default function Home() {
                 poster_path: string;
                 vote_average: number;
               }) => (
+                <Link href={`/detail/${movie.id}`} key={movie.id} >
                 <MovieCard
                   key={movie.id}
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -194,6 +211,7 @@ export default function Home() {
                   rating={parseFloat(movie.vote_average.toFixed(1))}
                   Loading={Loading}
                 />
+                </Link>
               )
             )}
         </div>
@@ -219,6 +237,7 @@ export default function Home() {
                 poster_path: string;
                 vote_average: number;
               }) => (
+                <Link href={`/detail/${movie.id}`} key={movie.id} >
                 <MovieCard
                   key={movie.id}
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -226,6 +245,7 @@ export default function Home() {
                   rating={parseFloat(movie.vote_average.toFixed(1))}
                   Loading={Loading}
                 />
+                </Link>
               )
             )}
         </div>
