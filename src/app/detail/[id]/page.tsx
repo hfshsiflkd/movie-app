@@ -8,7 +8,6 @@ import { Play } from "lucide-react";
 import { GenreDiv } from "@/app/components/GenreDiv";
 import Nexticon from "@/app/icons/Nexticon";
 import StarSize from "@/app/icons/StarSize-24";
-import { log } from "console";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 
@@ -119,6 +118,8 @@ const MovieDetail = () => {
               ) : (
                 <img
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+
+
                   alt={movie.title}
                   className="xl:w-[290px] xl:h-[428px] hidden xl:block       "
                 />

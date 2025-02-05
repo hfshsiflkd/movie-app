@@ -20,11 +20,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Input } from "@/components/ui/input";
-import { Moon, MoonIcon, Sun } from "lucide-react";
+import { ChevronRight, Moon, MoonIcon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import Link from "next/link";
+import Dropdown from "./Dropdown";
 
 export default function Home() {
   const { setTheme } = useTheme();
@@ -39,12 +40,20 @@ export default function Home() {
           </div>
           <div className="w-[488px] h-[36px] hidden md:flex  flex justify-between items-center">
             <Select>
-              <SelectTrigger className="w-[97px] h-[36px] border border-white-500 ">
+              <SelectTrigger className="w-[97px] h-[36px] border border-white-500">
                 <SelectValue placeholder="Genre" />
               </SelectTrigger>
-              <SelectContent>
-                <SelectGroup className="w-[575px] h-[305px]">
-                  <SelectLabel>Fruits</SelectLabel>
+              <SelectContent className="w-[575px] h-[305px]">
+                <SelectGroup className="pl-3">
+                  <p className="font-semibold text-2xl px-4 py-2">Genres</p>
+                  <p className="font-normal text-base px-4 pb-2">
+                    See lists of movies by genre
+                  </p>
+                  <div >
+                   
+                    <Dropdown/>
+                    
+                  </div>
                 </SelectGroup>
               </SelectContent>
             </Select>

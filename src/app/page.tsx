@@ -2,7 +2,6 @@
 
 import * as React from "react";
 
-import { useTheme } from "next-themes";
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/components/ui/card";
 import Nexticon from "./icons/Nexticon";
@@ -10,7 +9,6 @@ import { MovieCard } from "./components/Card";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Play } from "lucide-react";
 import StarSize from "./icons/StarSize-24";
 
@@ -149,9 +147,7 @@ export default function Home() {
                     />
                   </CardContent>
                 </Card>
-              </div>
-          
-                <div className="w-full h-[264px]   p-5 flex flex-col justify-between xl:absolute xl:top-40 xl:text-white  ">
+                <div className="w-full h-[264px]   p-5 flex flex-col justify-between xl:absolute xl:top-40 xl:text-white xl:left-60">
                   <div className="  xl:w-[335px] flex justify-between items-center xl:text-white ">
                     <div className="w-[252px]  ">
                       <p className="text-sm font-normal">Now Playing:</p>
@@ -179,7 +175,7 @@ export default function Home() {
                       <Play className="w-4 h-4" /> Watch Trailer
                     </div>
                   </div>
-                
+                </div>
               </div>
             </CarouselItem>
           ))}
