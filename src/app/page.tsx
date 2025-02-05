@@ -47,13 +47,15 @@ export default function Home() {
   const [top_rated, settop_rated] = useState<
     { id: number; title: string; poster_path: string; vote_average: number }[]
   >([]);
-  const [nowPlaying, setNowPlaying] = useState<{
-    id: number;
-    title: string;
-    poster_path: string;
-    vote_average: number;
-    backdrop_path: string;
-  }[]>([]);
+  const [nowPlaying, setNowPlaying] = useState<
+    {
+      id: number;
+      title: string;
+      poster_path: string;
+      vote_average: number;
+      backdrop_path: string;
+    }[]
+  >([]);
 
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
@@ -154,10 +156,12 @@ export default function Home() {
           <h1 className="text-xl sm:text-2xl font-semibold leading-24">
             Upcoming
           </h1>
-          <button className="w-[120px] h-[36px] px-4 py-2 flex justify-between items-center font-medium">
-            See more
-            <Nexticon />
-          </button>
+          <Link href="/Upcoming/">
+            <button className="w-[120px] h-[36px] px-4 py-2 flex justify-between items-center font-medium">
+              See more
+              <Nexticon />
+            </button>
+          </Link>
         </div>
         <div className="w-[350px] sm:w-[1277px] h-auto sm:h-[910px]  flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px]">
           {upcomingMovies
@@ -169,7 +173,7 @@ export default function Home() {
                 poster_path: string;
                 vote_average: number;
               }) => (
-                <Link href={`/detail/${movie.id}`} key={movie.id} >
+                <Link href={`/detail/${movie.id}`} key={movie.id}>
                   <MovieCard
                     key={movie.id}
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -188,10 +192,12 @@ export default function Home() {
           <h1 className="text-xl sm:text-2xl font-semibold leading-24">
             Top Rated
           </h1>
-          <button className="w-[120px] h-[36px] px-4 py-2 flex justify-between items-center font-medium">
-            See more
-            <Nexticon />
-          </button>
+          <Link href="/Top_Rated/">
+            <button className="w-[120px] h-[36px] px-4 py-2 flex justify-between items-center font-medium">
+              See more
+              <Nexticon />
+            </button>
+          </Link>
         </div>
         <div className="w-[350px] sm:w-[1277px] h-auto sm:h-[910px] flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px]">
           {top_rated
@@ -203,14 +209,14 @@ export default function Home() {
                 poster_path: string;
                 vote_average: number;
               }) => (
-                <Link href={`/detail/${movie.id}`} key={movie.id} >
-                <MovieCard
-                  key={movie.id}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  name={movie.title}
-                  rating={parseFloat(movie.vote_average.toFixed(1))}
-                  Loading={Loading}
-                />
+                <Link href={`/detail/${movie.id}`} key={movie.id}>
+                  <MovieCard
+                    key={movie.id}
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    name={movie.title}
+                    rating={parseFloat(movie.vote_average.toFixed(1))}
+                    Loading={Loading}
+                  />
                 </Link>
               )
             )}
@@ -222,10 +228,12 @@ export default function Home() {
           <h1 className="text-xl sm:text-2xl font-semibold leading-24">
             Popular
           </h1>
-          <button className="w-[120px] h-[36px] px-4 py-2 flex justify-between items-center font-medium">
-            See more
-            <Nexticon />
-          </button>
+          <Link href="/Popular/">
+            <button className="w-[120px] h-[36px] px-4 py-2 flex justify-between items-center font-medium">
+              See more
+              <Nexticon />
+            </button>
+          </Link>
         </div>
         <div className="w-[350px] sm:w-[1277px] h-auto sm:h-[910px] flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px]">
           {popularmovies
@@ -237,14 +245,14 @@ export default function Home() {
                 poster_path: string;
                 vote_average: number;
               }) => (
-                <Link href={`/detail/${movie.id}`} key={movie.id} >
-                <MovieCard
-                  key={movie.id}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  name={movie.title}
-                  rating={parseFloat(movie.vote_average.toFixed(1))}
-                  Loading={Loading}
-                />
+                <Link href={`/detail/${movie.id}`} key={movie.id}>
+                  <MovieCard
+                    key={movie.id}
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    name={movie.title}
+                    rating={parseFloat(movie.vote_average.toFixed(1))}
+                    Loading={Loading}
+                  />
                 </Link>
               )
             )}

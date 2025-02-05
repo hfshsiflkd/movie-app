@@ -24,7 +24,6 @@ const MovieDetail = () => {
   const [similarMovie, setSimilarMovie] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
- 
 
   useEffect(() => {
     if (!id) return;
@@ -55,15 +54,11 @@ const MovieDetail = () => {
             },
           }
         );
-        
-       
+
         setMovie(response.data);
         setDirector(Director.data);
         setSimilarMovie(similarMovie.data.results);
-        
 
-        
-   
         console.log(response.data);
         console.log(Director.data.crew[0].name);
         console.log(Director.data);
@@ -80,14 +75,14 @@ const MovieDetail = () => {
 
   if (loading) return loading;
   if (error) return <p>{error}</p>;
-  const formatNumber = (num:number) => {
+  const formatNumber = (num: number) => {
     if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + "B";
     if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
     if (num >= 1_000) return (num / 1_000).toFixed(1).replace(".0", "") + "K";
     if (num <= 1_000) return (num / 1_000).toFixed(1).replace(".0", "") + "K";
-    return Math.round(num).toString(); 
+    return Math.round(num).toString();
   };
-  
+
   return (
     <div className="w-full flex justify-center items-center">
       <div className=" w-full  pt-8 flex justify-center items-center flex-col">
@@ -119,14 +114,15 @@ const MovieDetail = () => {
               </div>
             </div>
             <div className="w-full h-[211px]  overflow-hidden relative bg-black/40 xl:w-[1080px] xl:h-[428px] xl:flex xl:justify-between xl:items-center xl:bg-transparent xl:mt-8">
-            {loading ? (
-        <Skeleton className="h-[309px] w-[158px] rounded" />
-      ) : (
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                className="xl:w-[290px] xl:h-[428px] hidden xl:block       "
-              />)}
+              {loading ? (
+                <Skeleton className="h-[309px] w-[158px] rounded" />
+              ) : (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  className="xl:w-[290px] xl:h-[428px] hidden xl:block       "
+                />
+              )}
               <div className="xl:block hidden relative">
                 <img
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
@@ -151,7 +147,7 @@ const MovieDetail = () => {
               <div className="absolute inset-0 bg-black/40  xl:bg-transparent"></div>
               <div className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30 xl:hidden ">
                 <div className="bg-white rounded-full w-10 h-10 flex justify-center items-center">
-                  <Play className="w-4 h-4 text-black"  />
+                  <Play className="w-4 h-4 text-black" />
                 </div>
                 <p className="text-white">Play trailer</p>{" "}
                 <p className="text-white text-sm font-normal">2:35</p>
@@ -201,26 +197,26 @@ const MovieDetail = () => {
             </button>
           </div>
           <div className="w-[335px] h-auto  flex justify-between gap-4  flex-wrap  sm:gap-[31.2px] xl:w-[1080px] my-4">
-          {similarMovie
-            .slice(0, 5)
-            .map(
-              (movie: {
-                id: number;
-                title: string;
-                poster_path: string;
-                vote_average: number;
-              }) => (
-                <Link href={`/detail/${movie.id}`} key={movie.id} >
-                <MovieCard
-                  key={movie.id}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  name={movie.title}
-                  rating={parseFloat(movie.vote_average.toFixed(1))}
-                  Loading={loading}
-                />
-                </Link>
-              )
-            )}
+            {similarMovie
+              .slice(0, 5)
+              .map(
+                (movie: {
+                  id: number;
+                  title: string;
+                  poster_path: string;
+                  vote_average: number;
+                }) => (
+                  <Link href={`/detail/${movie.id}`} key={movie.id}>
+                    <MovieCard
+                      key={movie.id}
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      name={movie.title}
+                      rating={parseFloat(movie.vote_average.toFixed(1))}
+                      Loading={loading}
+                    />
+                  </Link>
+                )
+              )}
           </div>
         </div>
       </div>
