@@ -21,9 +21,9 @@ import {
 } from "@/components/ui/carousel";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
-console.log("hahas", TMDB_BASE_URL);
+
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
-console.log("asdf", TMDB_API_KEY);
+
 export default function Home() {
   const [Loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -106,7 +106,7 @@ export default function Home() {
       setpopularMovies(popularResponse.data.results);
       settop_rated(top_rated.data.results);
       setNowPlaying(NowPlayingMovie.data.results);
-      console.log(upcomingResponse.data.results);
+    
 
       setLoading(false);
     } catch (error) {
@@ -212,6 +212,7 @@ export default function Home() {
                     name={movie.title}
                     rating={parseFloat(movie.vote_average.toFixed(1))}
                     Loading={Loading}
+                     
                   />
                 </Link>
               )

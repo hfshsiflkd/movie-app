@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MovieCard } from "../components/Card";
 import Link from "next/link";
-import { pages } from "next/dist/build/templates/app-page";
 
 const Upcoming = () => {
   const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
@@ -59,11 +58,7 @@ const Upcoming = () => {
           {popular.map((movie) => (
             <Link href={`/detail/${movie.id}`} key={movie.id}>
               <MovieCard
-                src={
-                  movie.poster_path
-                    ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                    : "/default-poster.jpg"
-                }
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 name={movie.title}
                 rating={parseFloat(movie.vote_average.toFixed(1))}
                 Loading={loading}

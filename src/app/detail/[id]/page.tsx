@@ -58,10 +58,6 @@ const MovieDetail = () => {
         setDirector(Director.data);
         setSimilarMovie(similarMovie.data.results);
 
-        console.log(response.data);
-        console.log(Director.data.crew[0].name);
-        console.log(Director.data);
-        console.log(similarMovie.data);
         setLoading(false);
       } catch (error) {
         setError("Киноны мэдээллийг татахад алдаа гарлаа.");
