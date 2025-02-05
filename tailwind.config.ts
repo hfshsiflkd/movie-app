@@ -20,6 +20,7 @@ export default {
 			customcarddark: '#262626',
 			customGenre: '#E4E4E7',
 			customGenredark: '#FAFAFA',
+			customText: '#09090B',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

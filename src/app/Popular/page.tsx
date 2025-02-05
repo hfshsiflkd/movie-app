@@ -6,8 +6,8 @@ import Link from "next/link";
 import { pages } from "next/dist/build/templates/app-page";
 
 const Upcoming = () => {
-  const TMDB_BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
-  const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+  const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
+  const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
