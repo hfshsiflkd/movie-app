@@ -6,6 +6,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import Star from "../icons/Star";
 
+import Image from "next/image";
+
 interface MovieCardProps {
   src: string;
   name: string;
@@ -21,7 +23,7 @@ export const MovieCard = ({ src, name, rating, Loading }: MovieCardProps) => {
         <Skeleton className="h-[309px] w-[158px] rounded" />
       ) : (
         <CardContent className="flex flex-col items-center justify-center overflow-hidden p-0 bg-customcard dark:bg-customcarddark w-[158px] h-[309px] sm:w-[230px] sm:h-[439px]">
-          <img
+          <Image
             src={src}
             alt={name}
             className="sm:w-[229.73px] sm:h-[340px] rounded w-[157.5px] h-[233px]"
