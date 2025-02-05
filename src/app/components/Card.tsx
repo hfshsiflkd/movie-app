@@ -21,7 +21,7 @@ export const MovieCard = ({ src, name, rating, Loading }: MovieCardProps) => {
       
       
         <CardContent className="flex flex-col items-center justify-center overflow-hidden p-0 bg-customcard dark:bg-customcarddark w-[158px] h-[309px] sm:w-[230px] sm:h-[439px]">
-          <Image
+          <img
             src={src}
             alt={name}
             className="sm:w-[229.73px] sm:h-[340px] rounded w-[157.5px] h-[233px]"
