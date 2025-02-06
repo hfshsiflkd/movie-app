@@ -20,7 +20,7 @@ const MovieDetail = () => {
   const router = useParams();
   const { id } = router;
   interface MoviesType {
-    genres: any;
+    genres: { id: number; name: string }[];
     runtime: ReactNode;
     release_date: ReactNode;
     id: number;
@@ -34,7 +34,7 @@ const MovieDetail = () => {
 
 
   const [movie, setMovie] = useState<MoviesType | null>(null);
-  const [, setDirector] = useState<any[]>([]);
+  const [, setDirector] = useState<MoviesType[]>([]);
   const [similarMovie, setSimilarMovie] = useState<MoviesType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -84,7 +84,7 @@ const MovieDetail = () => {
   }, [id]);
 
   if (loading) return <Skeleton className="h-[309px] w-[158px] rounded" />;
-  if (error) return <p>{error}</p>;
+  if (error) return <p>error</p>;
   if (!movie) return null;
   if (error) return <p>{error}</p>;
   const formatNumber = (num: number) => {
@@ -184,7 +184,7 @@ const MovieDetail = () => {
             </div>
             <div className="w-[201px] h-86  flex justify-start gap-3 items-center flex-col xl:w-[1080px] xl:h-[80px] xl:p-0">
               <div className="w-[201px]  flex flex-wrap gap-2 xl:w-[1080px] xl:h-[20px]">
-                {movie.genres.map((genre: any) => (
+                {movie.genres.map((genre) => (
                   <GenreDiv key={genre.id} text={genre.name} />
                 ))}
               </div>
