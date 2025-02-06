@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import { MovieCard } from "../../components/Card";
@@ -11,16 +11,31 @@ import StarSize from "@/app/icons/StarSize-24";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import Image from "next/image";
+
+
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 const MovieDetail = () => {
   const router = useParams();
   const { id } = router;
+  interface MoviesType {
+    genres: any;
+    runtime: ReactNode;
+    release_date: ReactNode;
+    id: number;
+    title: string;
+    poster_path: string;
+    vote_average: number;
+    backdrop_path: string;
+    overview: string;
+    popularity: number;
+  }
 
-  const [movie, setMovie] = useState<any>(null);
-  const [director, setDirector] = useState<any>(null);
-  const [similarMovie, setSimilarMovie] = useState<any>(null);
+
+  const [movie, setMovie] = useState<MoviesType | null>(null);
+  const [, setDirector] = useState<any[]>([]);
+  const [similarMovie, setSimilarMovie] = useState<MoviesType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -54,8 +69,8 @@ const MovieDetail = () => {
           }
         );
 
-        setMovie(response.data);
-        setDirector(Director.data);
+        setMovie(response.data as MoviesType);
+        setDirector(Director.data );
         setSimilarMovie(similarMovie.data.results);
 
         setLoading(false);
@@ -68,7 +83,9 @@ const MovieDetail = () => {
     fetchMovieDetails();
   }, [id]);
 
-  if (loading) return loading;
+  if (loading) return <Skeleton className="h-[309px] w-[158px] rounded" />;
+  if (error) return <p>{error}</p>;
+  if (!movie) return null;
   if (error) return <p>{error}</p>;
   const formatNumber = (num: number) => {
     if (num >= 1_000_000_000) return (num / 1_000_000_000).toFixed(1) + "B";

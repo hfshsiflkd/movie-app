@@ -7,8 +7,8 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 const Dropdown = () => {
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [, setLoading] = useState(false);
+  const [, setError] = useState("");
 
   const getMovieData = async () => {
     try {

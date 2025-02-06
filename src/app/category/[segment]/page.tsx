@@ -13,7 +13,7 @@ const CategoryPage = () => {
 
   const [movies, setMovies] = useState<{ id: number; poster_path: string; title: string; vote_average: number }[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -36,7 +36,7 @@ const CategoryPage = () => {
   }, [segment, TMDB_BASE_URL, TMDB_API_KEY]);
 
   if (loading) return <p>Уншиж байна...</p>;
-  if (error) return <p>{error}</p>;
+
 
   return (
     <div className="w-screen h-auto flex justify-center items-center my-10">

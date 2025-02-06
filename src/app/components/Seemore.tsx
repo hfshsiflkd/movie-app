@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Link from "next/link";
 import { MovieCard } from "../components/Card";
 import Nexticon from "../icons/Nexticon";
-import link from "next/link";
+
 
 
 interface Movie {
