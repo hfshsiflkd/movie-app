@@ -74,7 +74,7 @@ const MovieDetail = () => {
         setSimilarMovie(similarMovie.data.results);
 
         setLoading(false);
-      } catch (error) {
+      } catch (error) { console.log(error)
         setError("Киноны мэдээллийг татахад алдаа гарлаа.");
         setLoading(false);
       }

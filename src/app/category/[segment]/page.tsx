@@ -9,9 +9,10 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 const CategoryPage = () => {
   const { segment } = useParams(); // URL-аас segment авах
-  
 
-  const [movies, setMovies] = useState<{ id: number; poster_path: string; title: string; vote_average: number }[]>([]);
+  const [movies, setMovies] = useState<
+    { id: number; poster_path: string; title: string; vote_average: number }[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -25,6 +26,7 @@ const CategoryPage = () => {
         setMovies(response.data.results);
         setLoading(false);
       } catch (error) {
+        console.log(error);
         setError("Киноны мэдээллийг татахад алдаа гарлаа.");
         setLoading(false);
       }
@@ -38,13 +40,10 @@ const CategoryPage = () => {
   if (loading) return <p>Уншиж байна...</p>;
   if (error) return <p>errror</p>;
 
-
   return (
     <div className="w-screen h-auto flex justify-center items-center my-10">
       <div className="w-full sm:w-[1440px] h-auto px-5 sm:px-20 flex flex-col">
-        <h1 className="text-2xl font-semibold mb-5 capitalize">
-          {segment}
-        </h1>
+        <h1 className="text-2xl font-semibold mb-5 capitalize">{segment}</h1>
         <div className="w-[350px] sm:w-[1277px]  flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px]">
           {movies.map((movie) => (
             <Link href={`/detail/${movie.id}`} key={movie.id}>
