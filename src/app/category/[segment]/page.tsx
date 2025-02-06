@@ -4,11 +4,12 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { MovieCard } from "@/app/components/Card";
 import Link from "next/link";
+const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
+const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 const CategoryPage = () => {
   const { segment } = useParams(); // URL-аас segment авах
-  const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
-  const TMDB_API_KEY = process.env.TMDB_API_KEY;
+  
 
   const [movies, setMovies] = useState<{ id: number; poster_path: string; title: string; vote_average: number }[]>([]);
   const [loading, setLoading] = useState(true);
@@ -29,8 +30,10 @@ const CategoryPage = () => {
       }
     };
 
-    fetchMovies();
-  }, [segment]);
+    if (TMDB_BASE_URL && TMDB_API_KEY) {
+      fetchMovies();
+    }
+  }, [segment, TMDB_BASE_URL, TMDB_API_KEY]);
 
   if (loading) return <p>Уншиж байна...</p>;
   if (error) return <p>{error}</p>;
