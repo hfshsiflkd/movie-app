@@ -32,7 +32,6 @@ const MovieDetail = () => {
     popularity: number;
   }
 
-
   const [movie, setMovie] = useState<MoviesType | null>(null);
   const [, setDirector] = useState<MoviesType[]>([]);
   const [similarMovie, setSimilarMovie] = useState<MoviesType[]>([]);
@@ -70,7 +69,7 @@ const MovieDetail = () => {
         );
 
         setMovie(response.data as MoviesType);
-        setDirector(Director.data );
+        setDirector(Director.data);
         setSimilarMovie(similarMovie.data.results);
 
         setLoading(false);

@@ -32,10 +32,10 @@ const CategoryPage = () => {
       }
     };
 
-    if (TMDB_BASE_URL && TMDB_API_KEY) {
+  
       fetchMovies();
-    }
-  }, [segment, TMDB_BASE_URL, TMDB_API_KEY]);
+    
+  },);
 
   if (loading) return <p>Уншиж байна...</p>;
   if (error) return <p>errror</p>;
