@@ -2,11 +2,9 @@
 
 import Autoplay from "embla-carousel-autoplay";
 import { Card, CardContent } from "@/components/ui/card";
-import Nexticon from "./icons/Nexticon";
-import { MovieCard } from "./components/Card";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
-import Link from "next/link";
+
 import { Play } from "lucide-react";
 import StarSize from "./icons/StarSize-24";
 import {
@@ -54,8 +52,8 @@ interface nowPlayingType {
 }
 
 export default function Home() {
-  const [Loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [, setLoading] = useState(false);
+  const [, setError] = useState("");
   const [popularmovies, setpopularMovies] = useState<PopularMoviesType[]>([]);
   const [upcomingMovies, setUpcomingMovies] = useState<UpcomingMoviesType[]>(
     []
