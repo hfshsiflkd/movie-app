@@ -191,19 +191,19 @@ export default function Home() {
           movies={upcomingMovies}
           title={"Upcoming"}
           loading={false}
-          link="/category/upcoming"
+          link="/category/upcoming/1"
         />
         <Seemore
           movies={popularmovies}
           title={"Popular"}
           loading={false}
-          link="/category/popular"
+          link="/category/popular/1"
         />
         <Seemore
           movies={top_rated}
           title={"Top Rated"}
           loading={false}
-          link="/category/top_rated"
+          link="/category/top_rated/1"
         />
       </div>
     </>
