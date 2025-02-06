@@ -5,8 +5,6 @@ import {
   Select,
   SelectContent,
   SelectGroup,
-  SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -14,18 +12,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import { Input } from "@/components/ui/input";
-import { ChevronRight, Moon, MoonIcon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import Dropdown from "./Dropdown";
+import Image from "next/image";
 
 export default function Home() {
   const { setTheme } = useTheme();
@@ -35,7 +32,7 @@ export default function Home() {
         <div className="w-full max-w-[1280px] h-[36px] flex justify-between items-center">
           <div className="w-[92px] h-[20px] ">
             <Link href="/">
-              <img src="/img/Logo.png" alt="" />
+              <Image src="/img/Logo.png" alt="" width={92} height={20} />
             </Link>
           </div>
           <div className="w-[488px] h-[36px] hidden md:flex  flex justify-between items-center">
@@ -49,10 +46,8 @@ export default function Home() {
                   <p className="font-normal text-base px-4 pb-2">
                     See lists of movies by genre
                   </p>
-                  <div >
-                   
-                    <Dropdown/>
-                    
+                  <div>
+                    <Dropdown />
                   </div>
                 </SelectGroup>
               </SelectContent>

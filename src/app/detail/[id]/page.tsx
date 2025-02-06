@@ -10,7 +10,7 @@ import Nexticon from "@/app/icons/Nexticon";
 import StarSize from "@/app/icons/StarSize-24";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
-
+import Image from "next/image";
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
@@ -112,19 +112,21 @@ const MovieDetail = () => {
               {loading ? (
                 <Skeleton className="h-[309px] w-[158px] rounded" />
               ) : (
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-
-
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                   alt={movie.title}
-                  className="xl:w-[290px] xl:h-[428px] hidden xl:block       "
+                  className="xl:w-[290px] xl:h-[428px] hidden xl:block"
+                  width={290}
+                  height={428}
                 />
               )}
               <div className="xl:block hidden relative">
-                <img
+                <Image
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                   alt=""
                   className="w-full h-full object-cover bg-black/40 xl:w-[760px] xl:h-[428px] xl:bg-transparent relative"
+                  width={760}
+                  height={428}
                 />
                 <div className="absolute inset-0 bg-black/40  "></div>
                 <div className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30 ">
@@ -135,10 +137,12 @@ const MovieDetail = () => {
                   <p className="text-white text-sm font-normal">2:35</p>
                 </div>
               </div>
-              <img
+              <Image
                 src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                 alt=""
                 className="w-full h-full object-cover bg-black/40 xl:w-[760px] xl:h-[428px] xl:bg-transparent xl:hidden"
+                width={760}
+                height={428}
               />
 
               <div className="absolute inset-0 bg-black/40  xl:bg-transparent"></div>
@@ -153,10 +157,12 @@ const MovieDetail = () => {
           </div>
           <div className="w-[375px] h-[344px] mt-8 mb-5  px-5 flex justify-between xl:w-[1080px] xl:h-[100px] xl:items-center xl:p-0 xl:flex xl:justify-between xl:items-start">
             <div className="w-[100px] h-[144px]  relative overflow-hidden xl:w-[290px] xl:h-[428px] xl:hidden ">
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              <Image
+                src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                 alt=""
                 className="w-[100px] h-[144px] "
+                width={100}
+                height={144}
               />
             </div>
             <div className="w-[201px] h-86  flex justify-start gap-3 items-center flex-col xl:w-[1080px] xl:h-[80px] xl:p-0">
