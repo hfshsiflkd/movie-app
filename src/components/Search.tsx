@@ -7,7 +7,6 @@ import Link from "next/link";
 
 import Star from "@/app/icons/Star";
 
-
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 interface MoviesType {
@@ -22,7 +21,7 @@ interface MoviesType {
   release_date: string;
 }
 
-const Search = () => {
+const SearchFull = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [movies, setMovies] = useState<MoviesType[]>([]);
   const [loading, setLoading] = useState(false);
@@ -63,18 +62,17 @@ const Search = () => {
 
     return () => clearTimeout(delayDebounce);
   }, [searchValue]);
-   const formatNumber = (num: number): number => parseFloat(num.toFixed(1));
-   const formatDate = (date: string): string => {
-     const options: Intl.DateTimeFormatOptions = {
-       year: "numeric",
-    
-     };
-     return new Date(date).toLocaleDateString(undefined, options);
-   };
+  const formatNumber = (num: number): number => parseFloat(num.toFixed(1));
+  const formatDate = (date: string): string => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+    };
+    return new Date(date).toLocaleDateString(undefined, options);
+  };
 
   return (
-    <div className="w-[379px] h-[36px]  ">
-      <div className="flex items-center border rounded-lg px-3  shadow-sm focus-within:ring-2 focus-within:ring-gray-500">
+    <div className="xl:w-[379px] xl:h-[36px] w-[251px] h-[44px] mt-1 xl:mt-0  ">
+      <div className="flex items-center border rounded-lg px-3  shadow-sm focus-within:ring-2 focus-within:ring-gray-500  ">
         <SearchIcon className="text-gray-500" />
         <Input
           type="search"
@@ -91,7 +89,7 @@ const Search = () => {
       {error && <p className="mt-4 text-red-500">{error}</p>}
 
       {isFocused && searchValue && (
-        <div className="w-[577px] h-auto overflow-hidden rounded-lg dark:bg-customText bg-white p-2 mt-2 absolute left-[700px] ">
+        <div className="xl:w-[577px] w-[335px] h-auto overflow-hidden rounded-lg dark:bg-customText bg-white p-2 mt-2    ">
           {loading ? (
             <p className="text-center text-gray-500 mt-4">Уншиж байна...</p>
           ) : movies.length > 0 ? (
@@ -101,7 +99,7 @@ const Search = () => {
                 key={movie.id}
                 onClick={() => setSearchValue("")}
               >
-                <div className="p-2 border-b shadow-sm w-[553px] h-[116px] flex justify-between items-center mt-2">
+                <div className="p-2 border-b shadow-sm xl:w-[553px] xl:h-[116px]   flex justify-between items-center mt-2">
                   <div className="w-[67px] h-[100px] rounded">
                     <Image
                       src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -111,10 +109,9 @@ const Search = () => {
                       className="rounded"
                     />
                   </div>
-                  <div className="w-[454px] h-[99px] flex flex-col justify-between">
-                    <div className="w-[454px] h-[51px]  flex flex-col justify-center">
+                  <div className="xl:w-[454px] xl:h-[99px] w-[212px] h-[99px] flex flex-col xl:justify-between">
+                    <div className="xl:w-[454px] xl:h-[51px] w-[212px] h-[99px] flex flex-col justify-center">
                       <div className="text-xl font-semibold">{movie.title}</div>
-
                       <div className="w-[71px] h-[36px]  flex justify-start items-center ">
                         <Star />
                         <div className="w-[43px] h-[36px] flex justify-center items-start flex-col">
@@ -125,7 +122,7 @@ const Search = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="w-[454px] h-[51px]  flex justify-start items-end">
+                    <div className="xl:w-[454px] xl:h-[51px] w-[212px] h-[51px]  flex justify-start items-end">
                       {formatDate(movie.release_date)}
                     </div>
                   </div>
@@ -144,4 +141,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default SearchFull;
