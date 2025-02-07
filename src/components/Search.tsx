@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Search as SearchIcon } from "lucide-react";
 import axios from "axios";
 import Image from "next/image";
+import Link from "next/link";
+
+import Star from "@/app/icons/Star";
+
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -15,7 +19,7 @@ interface MoviesType {
   backdrop_path: string;
   overview: string;
   popularity: number;
-  release_date: number;
+  release_date: string;
 }
 
 const Search = () => {
@@ -23,6 +27,7 @@ const Search = () => {
   const [movies, setMovies] = useState<MoviesType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     if (!searchValue) {
@@ -58,6 +63,14 @@ const Search = () => {
 
     return () => clearTimeout(delayDebounce);
   }, [searchValue]);
+   const formatNumber = (num: number): number => parseFloat(num.toFixed(1));
+   const formatDate = (date: string): string => {
+     const options: Intl.DateTimeFormatOptions = {
+       year: "numeric",
+    
+     };
+     return new Date(date).toLocaleDateString(undefined, options);
+   };
 
   return (
     <div className="w-[379px] h-[36px]  ">
@@ -67,6 +80,9 @@ const Search = () => {
           type="search"
           placeholder="Кино хайх..."
           onChange={(e) => setSearchValue(e.target.value)}
+          onFocus={() => setIsFocused(true)}
+          value={searchValue}
+          onBlur={() => setTimeout(() => setIsFocused(false), 200)}
           className="border-none text-base w-full focus-visible:ring-0 shadow-none"
         />
       </div>
@@ -74,28 +90,54 @@ const Search = () => {
       {loading && <p className="mt-4 text-gray-500">Уншиж байна...</p>}
       {error && <p className="mt-4 text-red-500">{error}</p>}
 
-      {searchValue && (
-        <div className="w-[577px] h-auto overflow-hidden rounded-lg bg-customText p-2">
+      {isFocused && searchValue && (
+        <div className="w-[577px] h-auto overflow-hidden rounded-lg dark:bg-customText bg-white p-2 mt-2 absolute left-[700px] ">
           {loading ? (
             <p className="text-center text-gray-500 mt-4">Уншиж байна...</p>
           ) : movies.length > 0 ? (
             movies.slice(0, 5).map((movie) => (
-              <div
+              <Link
+                href={`/detail/${movie.id}`}
                 key={movie.id}
-                className="p-2 border rounded shadow-sm w-[553px] h-[116px] flex justify-between items-center"
+                onClick={() => setSearchValue("")}
               >
-                <div className="w-[67px] h-[100px]">
-                  <Image src={movie.poster_path} alt={""} width={67} height={100} />
+                <div className="p-2 border-b shadow-sm w-[553px] h-[116px] flex justify-between items-center mt-2">
+                  <div className="w-[67px] h-[100px] rounded">
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      alt={""}
+                      width={67}
+                      height={100}
+                      className="rounded"
+                    />
+                  </div>
+                  <div className="w-[454px] h-[99px] flex flex-col justify-between">
+                    <div className="w-[454px] h-[51px]  flex flex-col justify-center">
+                      <div className="text-xl font-semibold">{movie.title}</div>
+
+                      <div className="w-[71px] h-[36px]  flex justify-start items-center ">
+                        <Star />
+                        <div className="w-[43px] h-[36px] flex justify-center items-start flex-col">
+                          <div className="w-[43px] h-[20px] flex justify-center items-center font-normal text-sm">
+                            {formatNumber(movie.vote_average)}
+                            <p className="text-gray-500">/10</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="w-[454px] h-[51px]  flex justify-start items-end">
+                      {formatDate(movie.release_date)}
+                    </div>
+                  </div>
                 </div>
-                <div className="w-[454px] h-[99px] flex flex-col justify-between">
-                  <h3 className="text-lg font-semibold">{movie.title}</h3>
-                  <p className="text-sm text-gray-500">{movie.release_date}</p>
-                </div>
-              </div>
+              </Link>
             ))
           ) : (
             <p className="text-center text-gray-500 mt-4">Кино олдсонгүй.</p>
           )}
+          <div className="text-sm font-semibold mt-3 ml-2">
+            See all results for &quot;{searchValue}&quot;
+          </div>
         </div>
       )}
     </div>
