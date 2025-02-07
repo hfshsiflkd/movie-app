@@ -3,15 +3,14 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
-import { MovieCard } from "../../components/Card";
+import { MovieCard } from "../../../components/Card";
 import { Play } from "lucide-react";
-import { GenreDiv } from "@/app/components/GenreDiv";
+import { GenreDiv } from "@/components/GenreDiv";
 import Nexticon from "@/app/icons/Nexticon";
 import StarSize from "@/app/icons/StarSize-24";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import Image from "next/image";
-
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -33,7 +32,8 @@ const MovieDetail = () => {
   }
 
   const [movie, setMovie] = useState<MoviesType | null>(null);
-  const [, setDirector] = useState<MoviesType[]>([]);
+  const [director, setDirector] = useState<{ name: string } | null>(null);
+  const [writer, setWriter] = useState<{ name: string } | null>(null);
   const [similarMovie, setSimilarMovie] = useState<MoviesType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -69,18 +69,27 @@ const MovieDetail = () => {
         );
 
         setMovie(response.data as MoviesType);
-        setDirector(Director.data);
+        const directorData = Director.data.crew.find(
+          (member: { job: string }) => member.job === "Director"
+        );
+
+        setDirector(directorData);
+        setWriter(writer);
+
+        console.log(Director);
+
         setSimilarMovie(similarMovie.data.results);
 
         setLoading(false);
-      } catch (error) { console.log(error)
+      } catch (error) {
+        console.log(error);
         setError("Киноны мэдээллийг татахад алдаа гарлаа.");
         setLoading(false);
       }
     };
 
     fetchMovieDetails();
-  }, [id]);
+  }, [id, writer]);
 
   if (loading) return <Skeleton className="h-[309px] w-[158px] rounded" />;
   if (error) return <p>error</p>;
@@ -129,7 +138,7 @@ const MovieDetail = () => {
                 <Skeleton className="h-[309px] w-[158px] rounded" />
               ) : (
                 <Image
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
                   className="xl:w-[290px] xl:h-[428px] hidden xl:block"
                   width={290}
@@ -195,11 +204,11 @@ const MovieDetail = () => {
           <div className="w-[335px]  xl:w-[1080px]  ">
             <div className="w-[335px]  pb-3 xl:w-[1080px]  mb-[20px] flex gap-[53px] border-b border-b-customGenre items-center  dark:border-b-customGenredark">
               <h1 className="w-[55px]">Director</h1>
-              {/* <p>{director.name} </p> */}
+              <p>{director?.name ?? "Unknown"} </p>
             </div>
             <div className="w-[335px]  pb-3 xl:w-[1080px] mb-[20px] flex gap-[53px] border-b border-b-customGenre items-center">
               <h1 className="w-[55px]">Writers</h1>
-              <p>Winnie Holzman · Dana Fox · Gregory Maguire</p>
+              <p>{writer?.name ?? "Unknown"}</p>
             </div>
             <div className="w-[335px] pb-3 xl:w-[1080px]  mb-[20px] flex gap-[53px] border-b border-b-customGenre items-center">
               <h1 className="w-[55px]"> Stars</h1>
@@ -217,7 +226,7 @@ const MovieDetail = () => {
           </div>
           <div className="w-[335px] h-auto  flex justify-between gap-4  flex-wrap  sm:gap-[31.2px] xl:w-[1080px] my-4">
             {similarMovie
-              .slice(0, 5)
+              .slice(0, 4)
               .map(
                 (movie: {
                   id: number;

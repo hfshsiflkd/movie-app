@@ -1,9 +1,7 @@
 import React, { FC } from "react";
 import Link from "next/link";
-import { MovieCard } from "../components/Card";
-import Nexticon from "../icons/Nexticon";
-
-
+import { MovieCard } from "./Card";
+import Nexticon from "../app/icons/Nexticon";
 
 interface Movie {
   id: number;

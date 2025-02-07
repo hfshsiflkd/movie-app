@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { MovieCard } from "@/app/components/Card";
+import { MovieCard } from "@/components/Card";
 import Link from "next/link";
 import {
   Pagination,
@@ -13,7 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import  { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
@@ -28,11 +28,10 @@ const CategoryPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [totalPage, SetTotalPage] = useState(1);
-  const currentPage  = Number(params.page);
+  const currentPage = Number(params.page);
   const startPage = Math.max(0, currentPage - 2);
   const slicePage = 3;
   const endPage = Math.min(totalPage, startPage + slicePage);
-
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -55,9 +54,8 @@ const CategoryPage = () => {
   }, [segment, currentPage]);
 
   const handlePageChange = (pageNumber: number) => {
-   router.push(`/category/${segment}/${pageNumber}`)
+    router.push(`/category/${segment}/${pageNumber}`);
   };
-  
 
   if (loading) return <p>Уншиж байна...</p>;
   if (error) return <p>errror</p>;

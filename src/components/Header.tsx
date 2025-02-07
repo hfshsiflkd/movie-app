@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+// import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -15,16 +15,26 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Input } from "@/components/ui/input";
+
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import Search from "./Search";
+
 import Link from "next/link";
 import Dropdown from "./Dropdown";
 import Image from "next/image";
 
 export default function Home() {
+
+  // const [error, SetError] = useState();
+
+  try {
+  } catch (error) {
+    console.log(error);
+    
+  }
+
   const { setTheme } = useTheme();
   return (
     <div className="w-full h-[59px] ">
@@ -52,14 +62,7 @@ export default function Home() {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <div className="w-[379px] h-[36px] pl-[12px] pr-[12px] flex justify-between items-center border-none rounded group focus-within:ring-2 focus-within:ring-gray-500">
-              <Search />
-              <Input
-                type="Search"
-                placeholder="Search"
-                className="border-none text-3xl w-[100%] focus-visible:ring-0 shadow-none focus:ring-0"
-              />
-            </div>
+            <Search/>
           </div>
           <div className="w-[36px] h-[36px] ">
             <DropdownMenu>

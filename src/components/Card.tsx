@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 
-import Star from "../icons/Star";
+import Star from "../app/icons/Star";
 import Image from "next/legacy/image";
 
 interface MovieCardProps {
