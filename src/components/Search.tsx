@@ -110,9 +110,15 @@ const SearchFull = () => {
                     />
                   </div>
                   <div className="xl:w-[454px] xl:h-[99px] w-[212px] h-[99px] flex flex-col xl:justify-between">
-                    <div className="xl:w-[454px] xl:h-[51px] w-[212px] h-[99px] flex flex-col justify-center">
-                      <div className="text-xl font-semibold">{movie.title}</div>
-                      <div className="w-[71px] h-[36px]  flex justify-start items-center ">
+                    {/* Киноны нэр болон үнэлгээ */}
+                    <div className="xl:w-full xl:h-auto w-[212px] h-auto flex flex-col justify-center">
+                      {/* Киноны нэр */}
+                      <div className="text-xl font-semibold truncate w-full overflow-hidden">
+                        {movie.title}
+                      </div>
+
+                      {/* Үнэлгээ */}
+                      <div className="w-[71px] h-[36px] flex justify-start items-center mt-1">
                         <Star />
                         <div className="w-[43px] h-[36px] flex justify-center items-start flex-col">
                           <div className="w-[43px] h-[20px] flex justify-center items-center font-normal text-sm">
@@ -122,7 +128,9 @@ const SearchFull = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="xl:w-[454px] xl:h-[51px] w-[212px] h-[51px]  flex justify-start items-end">
+
+                    {/* Гарсан огноо */}
+                    <div className="xl:w-full xl:h-auto w-[212px] h-[51px] flex justify-start items-end">
                       {formatDate(movie.release_date)}
                     </div>
                   </div>
