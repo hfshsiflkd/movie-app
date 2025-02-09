@@ -11,6 +11,7 @@ import StarSize from "@/app/icons/StarSize-24";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import Image from "next/image";
+import { X } from "lucide-react";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -37,6 +38,8 @@ const MovieDetail = () => {
   const [similarMovie, setSimilarMovie] = useState<MoviesType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [trailer, setTrailer] = useState<{ key: string } | null>(null);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -67,6 +70,20 @@ const MovieDetail = () => {
             },
           }
         );
+        const Trailer = await axios.get(
+          `${TMDB_BASE_URL}/movie/${id}/videos?language=en-US`,
+          {
+            headers: {
+              Authorization: `Bearer ${TMDB_API_KEY}`,
+            },
+          }
+        );
+        const videos = Trailer.data.results;
+        const officialTrailer = videos.find(
+          (video: { type: string; site: string }) =>
+            video.type === "Trailer" && video.site === "YouTube"
+        );
+        setTrailer(officialTrailer);
 
         setMovie(response.data as MoviesType);
         const directorData = Director.data.crew.find(
@@ -75,8 +92,6 @@ const MovieDetail = () => {
 
         setDirector(directorData);
         setWriter(writer);
-
-        console.log(Director);
 
         setSimilarMovie(similarMovie.data.results);
 
@@ -154,7 +169,11 @@ const MovieDetail = () => {
                   height={428}
                 />
                 <div className="absolute inset-0 bg-black/40  "></div>
-                <div className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30 ">
+
+                <div
+                  className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30 "
+                  onClick={() => setShowTrailer(true)}
+                >
                   <div className="bg-white rounded-full w-10 h-10 flex justify-center items-center">
                     <Play className="w-4 h-4 text-black" />
                   </div>
@@ -171,13 +190,35 @@ const MovieDetail = () => {
               />
 
               <div className="absolute inset-0 bg-black/40  xl:bg-transparent"></div>
-              <div className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30 xl:hidden ">
+              <div
+                className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30 xl:hidden "
+                onClick={() => setShowTrailer(true)}
+              >
                 <div className="bg-white rounded-full w-10 h-10 flex justify-center items-center">
                   <Play className="w-4 h-4 text-black" />
                 </div>
-                <p className="text-white">Play trailer</p>{" "}
-                <p className="text-white text-sm font-normal">2:35</p>
+
+                <p className="text-white">Play trailer</p>
+
+                {trailer && (
+                  <p className="text-white text-sm font-normal">2:35</p>
+                )}
               </div>
+              {showTrailer && trailer && (
+                <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+                  <iframe
+                    width="800"
+                    height="450"
+                    src={`https://www.youtube.com/embed/${trailer.key}`}
+                    title="Trailer"
+                    allowFullScreen
+                  ></iframe>
+                  <X
+                    onClick={() => setShowTrailer(false)}
+                    className="absolute top-4 right-4 text-white"
+                  />
+                </div>
+              )}
             </div>
           </div>
           <div className="w-[375px] h-[344px] mt-8 mb-5  px-5 flex justify-between xl:w-[1080px] xl:h-[100px] xl:items-center xl:p-0 xl:flex xl:justify-between xl:items-start">
@@ -185,7 +226,7 @@ const MovieDetail = () => {
               <Image
                 src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                 alt=""
-                className="w-[100px] h-[144px] "
+                className="w-[100px] h-[144px]"
                 width={100}
                 height={144}
               />

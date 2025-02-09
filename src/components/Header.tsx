@@ -20,6 +20,7 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import SearchFull from "./Search";
 import { Search } from "lucide-react";
+import { X } from "lucide-react";
 
 import Link from "next/link";
 import Dropdown from "./Dropdown";
@@ -65,7 +66,7 @@ export default function Home() {
             <SearchFull />
           </div>
           <div className="flex gap-3">
-            <div className="relative w-[36px] h-[36px] xl:hidden">
+            <div className="relative w-[36px] h-[36px] xl:hidden flex justify-center items-center">
               <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -81,18 +82,14 @@ export default function Home() {
               {/* Аниматтай доош гарч ирэх div */}
             </div>
             <div
-              className={`absolute top-0 left-0 w-full bg-white dark:bg-black shadow-md rounded transition-all duration-300 ease-in-out z-30
-               ${
-                 isOpen
-                   ? "h-[59px] opacity-100"
-                   : "h-0 opacity-0 overflow-hidden"
-               }`}
+              className={`absolute top-0 left-0 w-full bg-white dark:bg-black shadow-md rounded transition-all duration-700 ease-in-out z-30 flex justify-center
+                 ${isOpen ? "h-[59px] opacity-100" : "h-0 opacity-0 overflow-hidden"}`}
             >
-              <div className=" w-[375px] h-[59px] flex justify-center items-center">
+              <div className=" w-[340px] h-[59px] flex justify-between items-center">
                 <div className="w-[299px] h-[44px] flex justify-between items-center">
                   <Select>
                     <SelectTrigger className="w-[36px] h-[36px] border border-white-500">
-                      <SelectValue placeholder=" " />
+                      <SelectValue placeholder="" />
                     </SelectTrigger>
                     <SelectContent className="xl:w-[575px] xl:h-[305px] w-[335px] h-[513px]">
                       <SelectGroup className="pl-3 ">
@@ -110,6 +107,9 @@ export default function Home() {
                   </Select>
                   <SearchFull />
                 </div>
+                <button onClick={() => setIsOpen(false)}>
+                  <X className="w-4 h-4 cursor-pointer text-gray-500 hover:text-black" />
+                </button>
               </div>
             </div>
             <div className="w-[36px] h-[36px] ">

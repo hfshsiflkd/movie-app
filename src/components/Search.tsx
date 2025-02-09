@@ -25,7 +25,7 @@ const SearchFull = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [movies, setMovies] = useState<MoviesType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [, setError] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
@@ -85,9 +85,6 @@ const SearchFull = () => {
         />
       </div>
 
-      {loading && <p className="mt-4 text-gray-500">Уншиж байна...</p>}
-      {error && <p className="mt-4 text-red-500">{error}</p>}
-
       {isFocused && searchValue && (
         <div className="xl:w-[577px] w-[335px] h-auto overflow-hidden rounded-lg dark:bg-customText bg-white p-2 mt-2    ">
           {loading ? (
@@ -110,14 +107,10 @@ const SearchFull = () => {
                     />
                   </div>
                   <div className="xl:w-[454px] xl:h-[99px] w-[212px] h-[99px] flex flex-col xl:justify-between">
-                    {/* Киноны нэр болон үнэлгээ */}
                     <div className="xl:w-full xl:h-auto w-[212px] h-auto flex flex-col justify-center">
-                      {/* Киноны нэр */}
                       <div className="text-xl font-semibold truncate w-full overflow-hidden">
                         {movie.title}
                       </div>
-
-                      {/* Үнэлгээ */}
                       <div className="w-[71px] h-[36px] flex justify-start items-center mt-1">
                         <Star />
                         <div className="w-[43px] h-[36px] flex justify-center items-start flex-col">
@@ -129,7 +122,6 @@ const SearchFull = () => {
                       </div>
                     </div>
 
-                    {/* Гарсан огноо */}
                     <div className="xl:w-full xl:h-auto w-[212px] h-[51px] flex justify-start items-end">
                       {formatDate(movie.release_date)}
                     </div>
