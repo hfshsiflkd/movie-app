@@ -129,7 +129,6 @@ const MovieDetail = () => {
                   {movie.title}
                 </div>
                 <div className="w-[211px] h-[20px]">
-                  {" "}
                   {movie.release_date} · {movie.runtime} мин
                 </div>
               </div>

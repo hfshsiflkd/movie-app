@@ -1,29 +1,20 @@
-// DetailCard.tsx
 import React, { FC } from "react";
 import { Play } from "lucide-react";
 import StarSize from "../app/icons/StarSize-24";
 
-
 interface Movie {
-  id: number;
+  id: number; // Киноны ID-г нэмэх шаардлагатай
   title: string;
   vote_average: number;
   overview: string;
-  poster_path?: string;
-  backdrop_path?: string;
 }
-
-// interface DetailCardProps {
-//   movie: Movie;
-//   setShowTrailer: (show: boolean) => void;
-// }
 
 interface DetailCardProps {
   movie: Movie;
-  setShowTrailer: (show: boolean) => void;
+  fetchTrailer: (movieId: number) => Promise<void>;
 }
 
-const DetailCard: FC<DetailCardProps> = ({ movie, setShowTrailer }) => {
+const DetailCard: FC<DetailCardProps> = ({ movie, fetchTrailer }) => {
   const formatNumber = (num: number): number => parseFloat(num.toFixed(1));
 
   return (
@@ -55,7 +46,7 @@ const DetailCard: FC<DetailCardProps> = ({ movie, setShowTrailer }) => {
       <div className="w-[335px] h-[52px] flex justify-between items-center">
         <button
           className="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
-          onClick={() => setShowTrailer(true)}
+          onClick={() => fetchTrailer(movie.id)} // Зөв ID-г дамжуулж байна
         >
           <Play className="w-4 h-4" /> Трейлер Үзэх
         </button>
