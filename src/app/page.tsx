@@ -13,7 +13,7 @@ import {
 import Image from "next/legacy/image";
 import Seemore from "../components/Seemore";
 import DetailCard from "../components/DetailCard";
-// import { X } from "lucide-react";
+import { X } from "lucide-react";
 import { useParams } from "next/navigation";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
@@ -59,8 +59,8 @@ export default function Home() {
   );
   const [top_rated, settop_rated] = useState<top_ratedType[]>([]);
   const [nowPlaying, setNowPlaying] = useState<nowPlayingType[]>([]);
-  // const [trailer, setTrailer] = useState<{ key: string } | null>(null);
-  // const [showTrailer, setShowTrailer] = useState(false);
+  const [trailer, setTrailer] = useState<{ key: string } | null>(null);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
   const params = useParams();
@@ -106,25 +106,25 @@ export default function Home() {
             },
           }
         );
-        // const Trailer = await axios.get(
-        //   `${TMDB_BASE_URL}/movie/videos?language=en-US`,
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${TMDB_API_KEY}`,
-        //     },
-        //   }
-        // );
-        // const videos = Trailer.data.results;
-        // const officialTrailer = videos.find(
-        //   (video: { type: string; site: string }) =>
-        //     video.type.toLowerCase() === "trailer" &&
-        //     video.site.toLowerCase() === "youtube"
-        // );
-        // if (officialTrailer) {
-        //   setTrailer(officialTrailer);
-        //   setShowTrailer(true);
-        // }
-        // setTrailer(officialTrailer);
+        const Trailer = await axios.get(
+          `${TMDB_BASE_URL}/movie/videos?language=en-US`,
+          {
+            headers: {
+              Authorization: `Bearer ${TMDB_API_KEY}`,
+            },
+          }
+        );
+        const videos = Trailer.data.results;
+        const officialTrailer = videos.find(
+          (video: { type: string; site: string }) =>
+            video.type.toLowerCase() === "trailer" &&
+            video.site.toLowerCase() === "youtube"
+        );
+        if (officialTrailer) {
+          setTrailer(officialTrailer);
+          setShowTrailer(true);
+        }
+        setTrailer(officialTrailer);
 
         setUpcomingMovies(upcomingResponse.data.results);
         setpopularMovies(popularResponse.data.results);
@@ -174,11 +174,9 @@ export default function Home() {
                       />
                     </CardContent>
                   </Card>
-                  <DetailCard movie={movie} setShowTrailer={function (): void {
-                    throw new Error("Function not implemented.");
-                  } }  />
+                  <DetailCard movie={movie} setShowTrailer={setShowTrailer} />
                 </div>
-                {/* {showTrailer && trailer?.key ? (
+                {showTrailer && trailer?.key ? (
                   <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
                     <iframe
                       width="800"
@@ -202,7 +200,7 @@ export default function Home() {
                       />
                     </div>
                   )
-                )} */}
+                )}
               </CarouselItem>
             ))}
           </CarouselContent>
