@@ -100,7 +100,7 @@ const Genre = () => {
     }
 
     const queryParams = new URLSearchParams();
-    
+
     if (updatedGenres.length > 0) {
       queryParams.set("genresId", updatedGenres.join(","));
     } else {
@@ -152,71 +152,73 @@ const Genre = () => {
               })}
           </div>
         </div>
-        <div className="flex flex-col justify-center items-start">
+        <div className="flex flex-col justify-center items-start ">
           <div className="text-xl font-semibold mt-8 xl:mt-0">
             {totalResults} titles{" "}
           </div>
-          <div className="w-[350px] sm:w-[806px] h-auto  flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px] my-10  ">
-            {movies.map((movie) => (
-              <Link href={`/detail/${movie.id}`} key={movie.id}>
-                <Card
-                  key={movie.id}
-                  className="w-[158px] h-[309px] sm:w-[165px] sm:h-[330px] flex items-center justify-center rounded-xl "
-                >
-                  <CardContent className="flex flex-col items-center justify-center overflow-hidden p-0 bg-customcard dark:bg-customcarddark w-[158px] h-[309px] sm:w-[230px] sm:h-[330px] rounded-xl">
-                    <div className="sm:w-[165px] sm:h-[244px] rounded w-[157.5px] h-[233px]">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                        alt={movie.title}
-                        width={165}
-                        height={244}
-                      />
-                    </div>
-                    <div className="sm:w-[165px] sm:h-[87px] w-[142px] h-[70px] rounded p-2">
-                      <div className="w-[149px] h-[23px] flex justify-start items-center gap-2">
-                        <Star />
-                        {parseFloat(movie.vote_average.toFixed(1))}/10
+          <div className="flex flex-col items-end ">
+            <div className="w-[350px] sm:w-[806px] h-auto  flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px] my-10  ">
+              {movies.map((movie) => (
+                <Link href={`/detail/${movie.id}`} key={movie.id}>
+                  <Card
+                    key={movie.id}
+                    className="w-[158px] h-[309px] sm:w-[165px] sm:h-[330px] flex items-center justify-center rounded-xl "
+                  >
+                    <CardContent className="flex flex-col items-center justify-center overflow-hidden p-0 bg-customcard dark:bg-customcarddark w-[158px] h-[309px] sm:w-[230px] sm:h-[330px] rounded-xl">
+                      <div className="sm:w-[165px] sm:h-[244px] rounded w-[157.5px] h-[233px]">
+                        <Image
+                          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                          alt={movie.title}
+                          width={165}
+                          height={244}
+                        />
                       </div>
-                      <div className="w-[149px] h-[56px]">{movie.title}</div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
-          </div>
-          <div className="xl:w-[110px] xl:h-[40px] flex justify-end items-end">
-            <Pagination className="w-auto float-right">
-              <PaginationContent className="">
-                <PaginationItem>
-                  <PaginationPrevious
-                    className={`${
-                      currentPage === 1 && "opacity-50 cursor-default"
-                    }`}
-                    onClick={() => handlePageChange(currentPage - 1)}
-                  />
-                </PaginationItem>
-                {[...Array(totalPage).keys()]
-                  .slice(startPage, endPage)
-                  .map((pageNum) => (
-                    <PaginationItem key={pageNum + 1}>
-                      <PaginationLink
-                        onClick={() => handlePageChange(pageNum + 1)}
-                        isActive={currentPage === pageNum + 1}
-                      >
-                        {pageNum + 1}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
-                <PaginationItem>
-                  <PaginationNext
-                    className={`${
-                      currentPage === totalPage && "opacity-50 cursor-default"
-                    }`}
-                    onClick={() => handlePageChange(currentPage + 1)}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+                      <div className="sm:w-[165px] sm:h-[87px] w-[142px] h-[70px] rounded p-2">
+                        <div className="w-[149px] h-[23px] flex justify-start items-center gap-2">
+                          <Star />
+                          {parseFloat(movie.vote_average.toFixed(1))}/10
+                        </div>
+                        <div className="w-[149px] h-[56px]">{movie.title}</div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+            <div className="xl:w-[110px] xl:h-[40px] flex justify-end items-end xl:mr-10">
+              <Pagination className="w-auto float-right">
+                <PaginationContent className="">
+                  <PaginationItem>
+                    <PaginationPrevious
+                      className={`${
+                        currentPage === 1 && "opacity-50 cursor-default"
+                      }`}
+                      onClick={() => handlePageChange(currentPage - 1)}
+                    />
+                  </PaginationItem>
+                  {[...Array(totalPage).keys()]
+                    .slice(startPage, endPage)
+                    .map((pageNum) => (
+                      <PaginationItem key={pageNum + 1}>
+                        <PaginationLink
+                          onClick={() => handlePageChange(pageNum + 1)}
+                          isActive={currentPage === pageNum + 1}
+                        >
+                          {pageNum + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+                  <PaginationItem>
+                    <PaginationNext
+                      className={`${
+                        currentPage === totalPage && "opacity-50 cursor-default"
+                      }`}
+                      onClick={() => handlePageChange(currentPage + 1)}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
           </div>
         </div>
       </div>
