@@ -86,7 +86,7 @@ const SearchFull = () => {
       </div>
 
       {isFocused && searchValue && (
-        <div className="xl:w-[577px] w-[335px] h-auto overflow-hidden rounded-lg dark:bg-customText bg-white p-2 mt-2    ">
+        <div className="xl:w-[577px] w-[335px] h-auto overflow-hidden rounded-lg dark:bg-customText bg-white p-2 mt-2 absolute right-10 xl:right-[550px] ">
           {loading ? (
             <p className="text-center text-gray-500 mt-4">Уншиж байна...</p>
           ) : movies.length > 0 ? (

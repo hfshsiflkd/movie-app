@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ChevronRight } from 'lucide-react';
+import Link from "next/link";
+
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -40,13 +42,15 @@ const Dropdown = () => {
   return (
     <div className="xl:w-[533px] xl:h-[200px] w-[335px] h-[100px] flex  border-t border-gray-500 flex-wrap gap-[8px] pr-10  xl:items-center xl:flex-wrap xl:gap-[16px] pt-2">
       {genres.map((genre) => (
-        <div
-          key={genre.id}
-          className="h-[20px] border border-gray-500 rounded-full flex justify-between gap-2 items-center p-[10px] text-xs font-semibold "
-        >
-          {genre.name}
-          <ChevronRight className="w-4 h-4" />
-        </div>
+        <Link href={`/genre`} key={genre.id}>
+          <div
+            key={genre.id}
+            className="h-[20px] border border-gray-500 rounded-full flex justify-between gap-2 items-center p-[10px] text-xs font-semibold "
+          >
+            {genre.name}
+            <ChevronRight className="w-4 h-4" />
+          </div>
+        </Link>
       ))}
     </div>
   );

@@ -78,8 +78,6 @@ export default function Home() {
                   </Button>
                 </DropdownMenuTrigger>
               </DropdownMenu>
-
-              {/* Аниматтай доош гарч ирэх div */}
             </div>
             <div
               className={`absolute top-0 left-0 w-full bg-white dark:bg-black shadow-md rounded transition-all duration-700 ease-in-out z-30 flex justify-center

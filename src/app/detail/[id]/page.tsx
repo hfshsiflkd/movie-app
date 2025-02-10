@@ -170,8 +170,9 @@ const MovieDetail = () => {
                 <div className="absolute inset-0 bg-black/40  "></div>
 
                 <div
-                  className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30 "
+                  className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30  cursor-pointer"
                   onClick={() => setShowTrailer(true)}
+                  
                 >
                   <div className="bg-white rounded-full w-10 h-10 flex justify-center items-center">
                     <Play className="w-4 h-4 text-black" />
