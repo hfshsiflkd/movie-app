@@ -1,21 +1,21 @@
+import { useSearchParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ChevronRight } from 'lucide-react';
-import Link from "next/link";
-
+import { ChevronRight } from "lucide-react";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
 const Dropdown = () => {
   const [genres, setGenres] = useState<{ id: number; name: string }[]>([]);
-  const [, setLoading] = useState(false);
-  const [, setError] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+
+  const selectedGenreIds = searchParams.get("genresId")?.split(",") || [];
 
   const getMovieData = async () => {
     try {
-      setLoading(true);
-
       const genreResponse = await axios.get(
         `${TMDB_BASE_URL}/genre/movie/list?language=en`,
         {
@@ -24,14 +24,9 @@ const Dropdown = () => {
           },
         }
       );
-
-      setGenres(genreResponse.data.genres); 
-      setLoading(false);
+      setGenres(genreResponse.data.genres);
     } catch (error) {
-      setLoading(false);
-      if (axios.isAxiosError(error)) {
-        setError(error.response?.data.status_message || "Алдаа гарлаа.");
-      }
+      console.error("Алдаа гарлаа", error);
     }
   };
 
@@ -39,19 +34,41 @@ const Dropdown = () => {
     getMovieData();
   }, []);
 
+  const handleGenreClick = (genreId: number) => {
+    const genreIdStr = genreId.toString();
+
+    let updatedGenres;
+    if (selectedGenreIds.includes(genreIdStr)) {
+      updatedGenres = selectedGenreIds.filter((id) => id !== genreIdStr);
+    } else {
+      updatedGenres = [...selectedGenreIds, genreIdStr];
+    }
+    const queryString =
+      updatedGenres.length > 0 ? `?genresId=${updatedGenres.join(",")}` : "";
+    router.push(`/genre${queryString}`);
+  };
+
   return (
-    <div className="xl:w-[533px] xl:h-[200px] w-[335px] h-[100px] flex  border-t border-gray-500 flex-wrap gap-[8px] pr-10  xl:items-center xl:flex-wrap xl:gap-[16px] pt-2">
-      {genres.map((genre) => (
-        <Link href={`/genre`} key={genre.id}>
+    <div className="xl:w-[533px] xl:h-[200px] w-[335px] h-[100px] flex border-t border-gray-500 flex-wrap gap-[8px] pr-10 xl:items-center xl:flex-wrap xl:gap-[16px] pt-2">
+      {genres.map((genre) => {
+        const isActive = selectedGenreIds.includes(genre.id.toString());
+
+        return (
           <div
             key={genre.id}
-            className="h-[20px] border border-gray-500 rounded-full flex justify-between gap-2 items-center p-[10px] text-xs font-semibold "
+            onClick={() => handleGenreClick(genre.id)}
+            className={`h-[20px] border border-gray-500 rounded-full flex justify-between gap-2 items-center p-[10px] text-xs font-semibold cursor-pointer 
+              ${
+                isActive
+                  ? "bg-black text-white dark:bg-white dark:text-black"
+                  : ""
+              }`}
           >
             {genre.name}
             <ChevronRight className="w-4 h-4" />
           </div>
-        </Link>
-      ))}
+        );
+      })}
     </div>
   );
 };

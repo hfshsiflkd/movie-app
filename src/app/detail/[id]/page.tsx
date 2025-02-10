@@ -3,7 +3,7 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
-import { MovieCard } from "../../../components/Card";
+import { MovieCard } from "../../../components/MovieCard";
 import { Play } from "lucide-react";
 import { GenreDiv } from "@/components/GenreDiv";
 import Nexticon from "@/app/icons/Nexticon";
@@ -172,7 +172,6 @@ const MovieDetail = () => {
                 <div
                   className="w-[174px] h-[40px]  absolute bottom-[12px] left-[12px] flex justify-between items-center z-30  cursor-pointer"
                   onClick={() => setShowTrailer(true)}
-                  
                 >
                   <div className="bg-white rounded-full w-10 h-10 flex justify-center items-center">
                     <Play className="w-4 h-4 text-black" />

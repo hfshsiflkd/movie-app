@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import { MovieCard } from "@/components/Card";
+import { MovieCard } from "@/components/MovieCard";
 import Link from "next/link";
 import {
   Pagination,

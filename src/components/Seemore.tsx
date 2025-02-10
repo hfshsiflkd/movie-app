@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Link from "next/link";
-import { MovieCard } from "./Card";
+import { MovieCard } from "./MovieCard";
 import Nexticon from "../app/icons/Nexticon";
 
 interface Movie {
