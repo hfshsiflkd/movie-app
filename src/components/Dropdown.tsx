@@ -34,19 +34,28 @@ const Dropdown = () => {
     getMovieData();
   }, []);
 
-  const handleGenreClick = (genreId: number) => {
+  const handleGenreSelection = (genreId: number) => {
     const genreIdStr = genreId.toString();
-
     let updatedGenres;
+
     if (selectedGenreIds.includes(genreIdStr)) {
       updatedGenres = selectedGenreIds.filter((id) => id !== genreIdStr);
     } else {
       updatedGenres = [...selectedGenreIds, genreIdStr];
     }
-    const queryString =
-      updatedGenres.length > 0 ? `?genresId=${updatedGenres.join(",")}` : "";
-    router.push(`/genre${queryString}`);
+
+    const queryParams = new URLSearchParams();
+
+    if (updatedGenres.length > 0) {
+      queryParams.set("genresId", updatedGenres.join(","));
+    } else {
+      queryParams.delete("genresId");
+    }
+
+    router.push(`/genre/?${queryParams.toString()}`);
   };
+
+  
 
   return (
     <div className="xl:w-[533px] xl:h-[200px] w-[335px] h-[100px] flex border-t border-gray-500 flex-wrap gap-[8px] pr-10 xl:items-center xl:flex-wrap xl:gap-[16px] pt-2">
@@ -56,7 +65,7 @@ const Dropdown = () => {
         return (
           <div
             key={genre.id}
-            onClick={() => handleGenreClick(genre.id)}
+            onClick={() => handleGenreSelection(genre.id)}
             className={`h-[20px] border border-gray-500 rounded-full flex justify-between gap-2 items-center p-[10px] text-xs font-semibold cursor-pointer 
               ${
                 isActive

@@ -132,9 +132,11 @@ const SearchFull = () => {
           ) : (
             <p className="text-center text-gray-500 mt-4">Кино олдсонгүй.</p>
           )}
-          <div className="text-sm font-semibold mt-3 ml-2">
-            See all results for &quot;{searchValue}&quot;
-          </div>
+          <Link href={`/search?searching=${searchValue}`}>
+            <div className="text-sm font-semibold mt-3 ml-2">
+              See all results for &quot;{searchValue}&quot;
+            </div>
+          </Link>
         </div>
       )}
     </div>
