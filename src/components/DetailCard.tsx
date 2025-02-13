@@ -14,11 +14,11 @@ interface DetailCardProps {
   fetchTrailer: (movieId: number) => Promise<void>;
 }
 
-const  DetailCard: FC<DetailCardProps> = ({ movie, fetchTrailer }) => {
+const DetailCard: FC<DetailCardProps> = ({ movie, fetchTrailer }) => {
   const formatNumber = (num: number): number => parseFloat(num.toFixed(1));
 
   return (
-    <div className="w-full h-[264px] p-5 flex flex-col justify-between xl:absolute xl:top-40 xl:text-white xl:left-40">
+    <div className="w-full h-[264px]  p-5 flex flex-col justify-between z-50 xl:absolute  xl:top-40 xl:text-white xl:left-40 ">
       <div className="xl:w-[335px] flex justify-between items-center xl:text-white">
         <div className="w-[252px]">
           <p className="text-sm font-normal">Одоо гарч байгаа:</p>
@@ -46,7 +46,7 @@ const  DetailCard: FC<DetailCardProps> = ({ movie, fetchTrailer }) => {
       <div className="w-[335px] h-[52px] flex justify-between items-center">
         <button
           className="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-9 px-4 py-2"
-          onClick={() => fetchTrailer(movie.id)} // Зөв ID-г дамжуулж байна
+          onClick={() => fetchTrailer(movie.id)}
         >
           <Play className="w-4 h-4" /> Трейлер Үзэх
         </button>

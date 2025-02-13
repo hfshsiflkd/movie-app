@@ -1,8 +1,9 @@
 "use client";
-import { Card, CardContent } from "@/components/ui/card";
 import { useRef, useState, FC } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import axios from "axios";
+import { Card, CardContent } from "@/components/ui/card";
+
 
 import {
   Carousel,
@@ -15,14 +16,14 @@ import Image from "next/image";
 // import Seemore from "../components/Seemore";
 import DetailCard from "@/components/DetailCard";
 import { X } from "lucide-react";
-// interface MovieType {
-//   id: number;
-//   title: string;
-//   poster_path: string;
-//   vote_average: number;
-//   backdrop_path: string;
-//   overview: string;
-// }
+interface MovieType {
+  id: number;
+  title: string;
+  poster_path: string;
+  vote_average: number;
+  backdrop_path: string;
+  overview: string;
+}
 
 interface MovieType {
   id: number;
@@ -77,7 +78,7 @@ const HomePage: FC<HomePageProps> = ({ nowPlaying }) => {
   return (
     <>
       <Carousel
-        plugins={[plugin.current]}
+        // plugins={[plugin.current]}
         className="w-full relative"
         onMouseEnter={plugin.current.stop}
         onMouseLeave={plugin.current.reset}
@@ -85,32 +86,32 @@ const HomePage: FC<HomePageProps> = ({ nowPlaying }) => {
         <CarouselPrevious className="left-5 sm:left-11 z-20 top-40 xl:top-80" />
         <CarouselContent>
           {nowPlaying.slice(0, 10).map((movie, index) => (
-            <CarouselItem key={index}>
-              <div className="relative h-[300px] sm:h-[600px] w-full">
-               
-                  
-                    <Image
-                      src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                      alt={movie.title}
-                      objectFit="cover"
-                      fill
-                    />
-               
-                {/* <Image
-                  src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                  alt={movie.title}
-                  objectFit="cover"
-                  fill
-                /> */}
-                <DetailCard movie={movie} fetchTrailer={fetchTrailer} />
-              </div>
+            <CarouselItem key={index} className="p-0">
+              <CarouselItem key={index}>
+                <div className="relative ">
+                  <Card className="w-full sm:w-screen overflow-hidden ">
+                    <CardContent className="flex items-center justify-center h-[300px] sm:h-[600px] w-full relative p-0 overflow-hidden">
+                      <Image
+                        src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                        alt={movie.title}
+                        objectFit="cover"
+                        layout="fill"
+                      />
+                    </CardContent>
+                  </Card>
+                  <DetailCard movie={movie} fetchTrailer={fetchTrailer} />
+                </div>
+              </CarouselItem>
             </CarouselItem>
           ))}
         </CarouselContent>
         <CarouselNext className="right-5 sm:right-11 z-20 top-40 xl:top-80" />
       </Carousel>
       {showTrailer && trailer && (
-        <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+          onClick={() => setShowTrailer(false)}
+        >
           <iframe
             width="800"
             height="450"

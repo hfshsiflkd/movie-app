@@ -204,7 +204,10 @@ const MovieDetail = () => {
                 )}
               </div>
               {showTrailer && trailer && (
-                <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50">
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
+                  onClick={() => setShowTrailer(false)}
+                >
                   <iframe
                     width="800"
                     height="450"

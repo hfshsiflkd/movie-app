@@ -31,7 +31,7 @@ const Seemore: FC<SeemoreProps> = ({ movies, title, loading, link }) => {
           </button>
         </Link>
       </div>
-      <div className="w-[350px] sm:w-[1277px] h-auto sm:h-[910px] flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px]">
+      <div className="w-[350px] sm:w-[1277px] h-auto sm:h-[910px] flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px] ">
         {movies.slice(0, 10).map((movie) => (
           <Link href={`/detail/${movie.id}`} key={movie.id}>
             <MovieCard
@@ -40,6 +40,7 @@ const Seemore: FC<SeemoreProps> = ({ movies, title, loading, link }) => {
               name={movie.title}
               rating={parseFloat(movie.vote_average.toFixed(1))}
               Loading={loading}
+            
             />
           </Link>
         ))}
