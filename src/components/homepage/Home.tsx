@@ -1,6 +1,5 @@
 "use client";
-import { Card, CardContent } from "@/components/ui/card";
-import { useRef , useState} from "react";
+import { useRef, useState, FC } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import axios from "axios";
 
@@ -11,18 +10,9 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Image from "next/legacy/image";
-// import Seemore from "../components/Seemore";
+import Image from "next/image";
 import DetailCard from "@/components/DetailCard";
 import { X } from "lucide-react";
-// interface MovieType {
-//   id: number;
-//   title: string;
-//   poster_path: string;
-//   vote_average: number;
-//   backdrop_path: string;
-//   overview: string;
-// }
 
 interface MovieType {
   id: number;
@@ -35,9 +25,14 @@ interface MovieType {
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
 
-const HomePage = ({  nowPlaying, showTrailer, setShowTrailer }: { nowPlaying: MovieType[], showTrailer: boolean, setShowTrailer: (show: boolean) => void, }) => {
+interface HomePageProps {
+  nowPlaying: MovieType[];
+}
+
+const HomePage: FC<HomePageProps> = ({ nowPlaying }) => {
   const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
   const [trailer, setTrailer] = useState<{ key: string } | null>(null);
+  const [showTrailer, setShowTrailer] = useState(false);
 
   const fetchTrailer = async (movieId: number) => {
     try {
@@ -67,8 +62,10 @@ const HomePage = ({  nowPlaying, showTrailer, setShowTrailer }: { nowPlaying: Mo
     }
   };
 
+  console.log(nowPlaying);
+
   return (
-    <div>
+    <>
       <Carousel
         plugins={[plugin.current]}
         className="w-full relative"
@@ -79,17 +76,14 @@ const HomePage = ({  nowPlaying, showTrailer, setShowTrailer }: { nowPlaying: Mo
         <CarouselContent>
           {nowPlaying.slice(0, 10).map((movie, index) => (
             <CarouselItem key={index}>
-              <div className="relative">
-                <Card className="w-full sm:w-screen overflow-hidden">
-                  <CardContent className="flex items-center justify-center h-[300px] sm:h-[600px] w-full relative p-0 overflow-hidden">
-                    <Image
-                      src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                      alt={movie.title}
-                      objectFit="cover"
-                      layout="fill"
-                    />
-                  </CardContent>
-                </Card>
+              <div className="relative h-[300px] sm:h-[600px] w-full">
+                <Image
+                  src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                  alt={movie.title}
+                  objectFit="cover"
+                  fill
+                />
+
                 <DetailCard movie={movie} fetchTrailer={fetchTrailer} />
               </div>
             </CarouselItem>
@@ -112,7 +106,7 @@ const HomePage = ({  nowPlaying, showTrailer, setShowTrailer }: { nowPlaying: Mo
           />
         </div>
       )}
-    </div>
+    </>
   );
 };
 

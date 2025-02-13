@@ -1,20 +1,9 @@
 "use client";
-// import Autoplay from "embla-carousel-autoplay";
-// import { Card, CardContent } from "@/components/ui/card";
+
 import axios from "axios";
-import { useEffect, useState,  } from "react";
-// import {
-//   Carousel,
-//   CarouselContent,
-//   CarouselItem,
-//   CarouselNext,
-//   CarouselPrevious,
-// } from "@/components/ui/carousel";
-// import Image from "next/legacy/image";
+import { useEffect, useState } from "react";
 import Seemore from "../components/Seemore";
-// import DetailCard from "../components/DetailCard";
-// import { X } from "lucide-react";
-import HomePage from "@/components/homepage/Homepage";
+import HomePage from "@/components/homepage/Home";
 
 const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
 const TMDB_API_KEY = process.env.TMDB_API_KEY;
@@ -35,9 +24,6 @@ export default function Home() {
   const [upcomingMovies, setUpcomingMovies] = useState<MovieType[]>([]);
   const [topRated, setTopRated] = useState<MovieType[]>([]);
   const [nowPlaying, setNowPlaying] = useState<MovieType[]>([]);
-  const [showTrailer, setShowTrailer] = useState(false);
-
-  // const plugin = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   useEffect(() => {
     const getMovieData = async () => {
@@ -93,15 +79,9 @@ export default function Home() {
     getMovieData();
   }, []);
 
-  
-
   return (
     <div className="w-full h-auto flex justify-between items-center flex-col mb-10 gap-12 sm:gap-20">
-      <HomePage
-        nowPlaying={nowPlaying}
-        showTrailer={showTrailer}
-        setShowTrailer={setShowTrailer}
-      />
+      <HomePage nowPlaying={nowPlaying} />
 
       <Seemore
         movies={upcomingMovies}
