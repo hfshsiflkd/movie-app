@@ -14,7 +14,7 @@ interface DetailCardProps {
   fetchTrailer: (movieId: number) => Promise<void>;
 }
 
-const DetailCard: FC<DetailCardProps> = ({ movie, fetchTrailer }) => {
+const  DetailCard: FC<DetailCardProps> = ({ movie, fetchTrailer }) => {
   const formatNumber = (num: number): number => parseFloat(num.toFixed(1));
 
   return (

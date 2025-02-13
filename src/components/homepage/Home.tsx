@@ -1,4 +1,5 @@
 "use client";
+import { Card, CardContent } from "@/components/ui/card";
 import { useRef, useState, FC } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import axios from "axios";
@@ -11,8 +12,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
+// import Seemore from "../components/Seemore";
 import DetailCard from "@/components/DetailCard";
 import { X } from "lucide-react";
+// interface MovieType {
+//   id: number;
+//   title: string;
+//   poster_path: string;
+//   vote_average: number;
+//   backdrop_path: string;
+//   overview: string;
+// }
 
 interface MovieType {
   id: number;
@@ -77,13 +87,21 @@ const HomePage: FC<HomePageProps> = ({ nowPlaying }) => {
           {nowPlaying.slice(0, 10).map((movie, index) => (
             <CarouselItem key={index}>
               <div className="relative h-[300px] sm:h-[600px] w-full">
-                <Image
+               
+                  
+                    <Image
+                      src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+                      alt={movie.title}
+                      objectFit="cover"
+                      fill
+                    />
+               
+                {/* <Image
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
                   alt={movie.title}
                   objectFit="cover"
                   fill
-                />
-
+                /> */}
                 <DetailCard movie={movie} fetchTrailer={fetchTrailer} />
               </div>
             </CarouselItem>

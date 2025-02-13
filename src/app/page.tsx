@@ -82,7 +82,6 @@ export default function Home() {
   return (
     <div className="w-full h-auto flex justify-between items-center flex-col mb-10 gap-12 sm:gap-20">
       <HomePage nowPlaying={nowPlaying} />
-
       <Seemore
         movies={upcomingMovies}
         title={"Upcoming"}
