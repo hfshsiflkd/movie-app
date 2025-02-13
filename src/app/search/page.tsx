@@ -61,6 +61,11 @@ const Search = () => {
           ? `&with_genres=${selectedGenreIds.join(",")}`
           : "";
 
+      console.log(
+        "Явуулах хүсэлт:",
+        `${TMDB_BASE_URL}/search/movie?query=${query}&language=en&page=${currentPage}${genreFilter}`
+      ); // 🔴 URL зөв үү?
+
       const [genreListResponse, search] = await Promise.all([
         axios.get(`${TMDB_BASE_URL}/genre/movie/list?language=en`, {
           headers: { Authorization: `Bearer ${TMDB_API_KEY}` },
@@ -72,6 +77,8 @@ const Search = () => {
           }
         ),
       ]);
+
+      console.log("Буцаагдсан өгөгдөл:", search.data.results); // 🔴 API-аас кино ирж байна уу?
 
       SetTotalPage(search.data.total_pages);
       setGenres(genreListResponse.data.genres);
@@ -85,32 +92,43 @@ const Search = () => {
     } finally {
       setLoading(false);
     }
-  }, [selectedGenreIds, query, currentPage]); 
+  }, [selectedGenreIds, query, currentPage]);
 
   useEffect(() => {
+    console.log("useEffect ажиллалаа:", {
+      query,
+      currentPage,
+      selectedGenreIds,
+    });
     setSearchquary(query || "");
     getMovieData();
-  }, [query, currentPage, getMovieData]);
+  }, [query, currentPage, selectedGenreIds, getMovieData]);
+
+  useEffect(() => {
+    console.log("🎥 Кино жагсаалт шинэчлэгдсэн:", movies);
+  }, [movies]); // ❗ Энэ нь кино жагсаалт шинэчлэгдэж байгаа эсэхийг шалгана
 
   const handleGenreSelection = (genreId: number) => {
     const genreIdStr = genreId.toString();
-    let updatedGenres;
+    let updatedGenres = [...selectedGenreIds];
 
-    if (selectedGenreIds.includes(genreIdStr)) {
-      updatedGenres = selectedGenreIds.filter((id) => id !== genreIdStr);
+    if (updatedGenres.includes(genreIdStr)) {
+      updatedGenres = updatedGenres.filter((id) => id !== genreIdStr);
     } else {
-      updatedGenres = [...selectedGenreIds, genreIdStr];
+      updatedGenres.push(genreIdStr);
     }
 
-    const queryParams = new URLSearchParams();
+    console.log("Шинэчлэх жанрууд:", updatedGenres); // 🔴 Энэ нь зөв өөрчлөгдөж байна уу?
+
+    const queryParams = new URLSearchParams(searchParams.toString());
 
     if (updatedGenres.length > 0) {
       queryParams.set("genresId", updatedGenres.join(","));
+    } else {
+      queryParams.delete("genresId");
     }
 
-    if (query) {
-      queryParams.set("searching", query);
-    }
+    console.log("Шинэчлэх URL:", `/search/?${queryParams.toString()}`); // 🔴 Query string зөв байна уу?
 
     router.push(`/search/?${queryParams.toString()}`);
   };
@@ -135,7 +153,7 @@ const Search = () => {
           <div className="text-xl font-semibold mt-8 xl:mt-0">
             {totalResults} results for {query}
           </div>
-          <div className="flex flex-col items-end ">
+          <div className="flex flex-col items-end  ">
             <div className="w-[350px] sm:w-[806px] h-auto flex justify-items-center items-between flex-wrap gap-5 sm:gap-[31.2px] my-10">
               {movies.length > 0 ? (
                 movies.map((movie) => (
@@ -157,7 +175,7 @@ const Search = () => {
                         <div className="sm:w-[165px] sm:h-[87px] w-[142px] h-[70px] rounded p-2">
                           <div className="w-[149px] h-[23px] flex justify-start items-center gap-2">
                             <Star />
-                            /10
+                            {movie.vote_average}/10
                           </div>
                           <div className="w-[149px] h-[56px] truncate">
                             {movie.title}

@@ -123,9 +123,9 @@ const Genre = () => {
         <div className="mb-8 text-2xl font-semibold xl:w-[1280px] xl:h-[36px] xl:mb-10">
           Search Filter
         </div>
-        <div className="w-auto h-auto xl:w-[387px] xl:h-[352px] static">
+        <div className="w-auto h-auto xl:w-[387px] xl:h-[352px] static fixed lg:sticky">
           <div className="flex justify-between items-start flex-col">
-            <div className="text-xl font-semibold">Search by genre</div>
+            <div className="text-xl font-semibold ">Search by genre</div>
             <div className="text-base font-normal">
               See lists of movies by genre
             </div>
